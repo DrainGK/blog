@@ -30,6 +30,7 @@
 
 .sidebar > img{
     margin-top: 15px;
+    object-fit: cover;
 }
 
 .sidebar-item > p {
