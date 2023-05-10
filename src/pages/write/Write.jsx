@@ -6,6 +6,7 @@ import { Context } from "../../context/Context"
 const Write = () => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
+    const [categories, setCategories] = useState([]);
     const [file, setFile] = useState(null);
     const {user} = useContext(Context);
 
@@ -15,6 +16,7 @@ const Write = () => {
             username: user.username,
             title,
             desc,
+            categories,
         };
         if(file){
             const data = new FormData();
@@ -45,6 +47,17 @@ const Write = () => {
                     </label>
                     <input type="file" id="fileInput" style={{display:"none"}} onChange={e=>setFile(e.target.files[0])}/>
                     <input type="text" placeholder='Title' className='writeInput' autoFocus={true}  onChange={e=>setTitle(e.target.value)}/>
+                </div>
+                <div className="write-form-group">
+                    <select name="categories" id="categories" 
+                    onChange={e=>setCategories(e.target.value)}>
+                        <option value="laptop">laptop</option>
+                        <option value="gaming">gaming</option>
+                        <option value="bureau">bureau</option>
+                        <option value="apple">apple</option>
+                        <option value="site">site</option>
+                    </select>
+                    <label htmlFor="categories"> categories</label>
                 </div>
                 <div className="write-form-group">
                     <textarea placeholder='Tell your story...' type="text" className='writeInput writeText' onChange={e=>setDesc(e.target.value)}></textarea>

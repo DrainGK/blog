@@ -11,6 +11,7 @@ const SinglePost = () => {
     const {user} = useContext(Context);
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
+    const [categories, setCategories] = useState("")
     const [file, setFile] = useState(null);
     const [updateMode, setUpdateMode] = useState(false)
 
@@ -21,6 +22,7 @@ const SinglePost = () => {
             setPost(postFiltered[0]);
             setTitle(postFiltered[0].title)
             setDesc(postFiltered[0].desc)
+            setCategories(postFiltered[0].categories)
             setFile(postFiltered[0].photo)
         };
         getPost();
@@ -39,6 +41,8 @@ const SinglePost = () => {
             username: user.username,
             title,
             desc,
+            categories,
+            file,
         };
         if(file){
             const data = new FormData();
@@ -89,6 +93,25 @@ const SinglePost = () => {
                             </Link>
                         </span>
                         <span className="single-post-date">{new Date(post.createdAt).toDateString()}</span>
+                        
+                        {updateMode ? (
+                            <>
+                        <select name="categories" id="categories" 
+                        onChange={e=>setCategories(e.target.value)}>
+                            <option value="laptop">laptop</option>
+                            <option value="gaming">gaming</option>
+                            <option value="bureau">bureau</option>
+                            <option value="apple">apple</option>
+                            <option value="site">site</option>
+                        </select>
+                        <label htmlFor="categories"> categories</label>
+                        </>
+                    ):(
+                        <select name="categories" id="categories">
+                        <option value={post.categories}>{post.categories}</option>
+                    </select>
+                        )}
+                    <label htmlFor="categories"> categories</label>
                     </div>
                     {updateMode ? (
                         <textarea className='single-post-decription-input' value={desc} onChange={(e) => setDesc(e.target.value)} />
